@@ -123,6 +123,7 @@ python manage.py runserver
 ## Project Structure
 
 BACKEND
+```
 Smile_Horizon/
 ├── core/
 │   ├── views.py          # Core business logic
@@ -145,9 +146,10 @@ Smile_Horizon/
     ├── base.py          # Base settings
     ├── development.py   # Dev environment
     └── production.py    # Prod environment
-
+```
 
 FRONTEND
+```
 react_smilehorizon/
 ├── src/
 │   ├── components/
@@ -177,6 +179,7 @@ react_smilehorizon/
 │
 └── public/
     └── index.html
+```
 
 ## Database Models
 

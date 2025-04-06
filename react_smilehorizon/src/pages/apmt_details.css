@@ -1,0 +1,347 @@
+.appointment-details-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.appointment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.appointment-header h1 {
+  margin: 0;
+  color: #2c3e50;
+}
+
+.appointment-meta {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.appointment-meta p {
+  margin: 5px 0;
+}
+
+.status-scheduled {
+  color: #3498db;
+  font-weight: bold;
+}
+
+.status-completed {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.status-cancelled {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.patient-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.patient-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.info-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.previous-treatments, 
+.previous-prescriptions,
+.dental-chart-section,
+.current-appointment,
+.new-prescription {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.history-cards, .prescription-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.history-card, .prescription-card {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border-left: 4px solid #3498db;
+  padding: 15px;
+  flex: 1;
+  min-width: 250px;
+}
+
+.card-header {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.date {
+  font-weight: bold;
+  color: #7f8c8d;
+}
+
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.medicine-table th, 
+.medicine-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.medicine-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+.dental-chart {
+  margin: 20px 0;
+}
+
+.dental-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.tooth {
+  position: relative;
+  width: 40px;
+  height: 50px;
+  margin: 0 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.tooth:hover {
+  background-color: #f1f1f1;
+}
+
+.tooth.selected {
+  background-color: #e1f5fe;
+  box-shadow: 0 0 0 2px #03a9f4;
+}
+
+.tooth-number {
+  font-size: 10px;
+  margin-bottom: 2px;
+}
+
+.tooth-graphic {
+  width: 24px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooth-icon {
+  width: 20px;
+  height: 26px;
+  background-color: #fff;
+}
+
+.tooth-icon.normal {
+  background-color: #fff;
+}
+
+.tooth-icon.filling {
+  background-color: #aed581;
+}
+
+.tooth-icon.extraction {
+  background-color: #ef5350;
+}
+
+.tooth-icon.missing {
+  background-color: #9e9e9e;
+}
+
+.tooth-icon.decay {
+  background-color: #ffb74d;
+}
+
+.tooth-icon.crown {
+  background-color: #9575cd;
+}
+
+.tooth-icon.bridge {
+  background-color: #7986cb;
+}
+
+.tooth-icon.implant {
+  background-color: #4fc3f7;
+}
+
+.tooth-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.tooth-actions p {
+  margin: 0 15px 0 0;
+  font-weight: bold;
+}
+
+.tooth-actions select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+.notes-textarea,
+.work-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-family: inherit;
+  margin-top: 8px;
+}
+
+.prescription-form {
+  margin-top: 15px;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 150px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+.add-medicine-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 9px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-medicine-btn:hover {
+  background-color: #43a047;
+}
+
+.prescription-preview {
+  margin-top: 20px;
+}
+
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.appointment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background-color: #1e88e5;
+}
+
+@media (max-width: 768px) {
+  .appointment-header {
+    flex-direction: column;
+  }
+  
+  .appointment-meta {
+    margin-top: 15px;
+    width: 100%;
+  }
+  
+  .form-row {
+    flex-direction: column;
+  }
+  
+  .form-group {
+    width: 100%;
+  }
+  
+  .add-medicine-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

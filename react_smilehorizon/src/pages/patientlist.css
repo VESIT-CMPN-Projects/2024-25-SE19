@@ -1,0 +1,121 @@
+.patient-list-page {
+  padding: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.patient-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.patient-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.patient-form button {
+  padding: 10px;
+  background-color: #2E8B57;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.patient-form button:hover {
+  background-color: #237a73;
+}
+
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+}
+
+.patient-table th, .patient-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.patient-table th {
+  background-color: #f2f2f2;
+}
+
+.patient-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.edit-btn, .delete-btn {
+  padding: 5px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #ec971f;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Gender dropdown styling */
+.patient-form select.gender-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.patient-name-cell {
+  cursor: pointer;
+}
+
+.patient-name-link {
+  color: #2E8B57;
+  text-decoration: none;
+  position: relative;
+}
+
+.patient-name-link:hover {
+  text-decoration: underline;
+}
+
+.patient-name-link:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: #2E8B57;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.patient-name-link:hover:after {
+  transform: scaleX(1);
+}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block title %}Patients - SmileHorizon{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Patients</h1>
+        <a href="{% url 'patient_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i> Add New Patient
+        </a>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="get" action="{% url 'patient_list' %}">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <input type="text" name="search" class="form-control" placeholder="Search by name, phone, email..." value="{{ search_query }}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select name="status" class="form-select">
+                            <option value="">All Status</option>
+                            {% for status_code, status_name in status_choices %}
+                                <option value="{{ status_code }}" {% if status_filter == status_code %}selected{% endif %}>{{ status_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Patients List -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Patient Records</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Age / Gender</th>
+                            <th>Contact</th>
+                            <th>Last Visit</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-circle p-2 me-3">
+                                        <i class="fas fa-user text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0">{{ patient.first_name }} {{ patient.last_name }}</h6>
+                                        <small class="text-muted">ID: {{ patient.id }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ patient.age }} / {{ patient.get_gender_display }}</td>
+                            <td>
+                                <div>{{ patient.contact_number }}</div>
+                                <small class="text-muted">{{ patient.email }}</small>
+                            </td>
+                            <td>{{ patient.last_visit|default:"No visits yet" }}</td>
+                            <td>
+                                {% if patient.status == 'NEW' %}
+                                    <span class="badge rounded-pill bg-info">New Patient</span>
+                                {% elif patient.status == 'ONGOING' %}
+                                    <span class="badge rounded-pill badge-ongoing">Ongoing Treatment</span>
+                                {% elif patient.status == 'COMPLETED' %}
+                                    <span class="badge rounded-pill badge-completed">Treatment Completed</span>
+                                {% elif patient.status == 'FOLLOW_UP' %}
+                                    <span class="badge rounded-pill bg-primary">Follow-up Required</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="{% url 'patient_detail' pk=patient.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="{% url 'patient_update' pk=patient.id %}" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center py-4">
+                                <p class="text-muted mb-2">No patients found</p>
+                                <a href="{% url 'patient_create' %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-plus me-2"></i> Add New Patient
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

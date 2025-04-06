@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  height: 100vh; /* Ensure the app takes the full height of the viewport */
+}
+
+.sidebar {
+  /* width: 200px; */
+  /* background-color: #2E8B57; */
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100vh; /* Ensure the sidebar takes the full height of the viewport */
+}
+
+.logo {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stat {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+  padding: 20px;
+  background-color: #2E8B57;
+  border-radius: 5px;
+  color: white;
+}
+
+.calendar-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-grow: 1;
+}
+
+.selected-date-stats {
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+}
+
+.main-content, .selected-date-stats {
+  min-width: 0;
+}
+
+
+/* Custom styles for the calendar */
+.react-calendar {
+  width: 50%; /* Adjusted width */
+  background-color: #f4f4f4;
+  border: none;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+.react-calendar__tile {
+  background-color: #fff;
+  color: #333;
+}
+
+.react-calendar__tile--active {
+  background-color: #2E8B57;
+  color: #fff;
+}
+
+.react-calendar__tile--now {
+  background-color: #ffeb3b;
+  color: #333;
+}
+
+.react-calendar__navigation button {
+  color: #2E8B57;
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d9534f;
+}
+
+
+
+
+
+
+/* Search Panel Enhancements */
+.search-panel input:focus {
+  outline: none;
+  border-color: #1E5B37;
+  box-shadow: 0 0 5px #1E5B37;
+}
+
+/* Selected Patient Name Styling */
+.selected-patient:hover {
+  background-color: #1E5B37;
+  color: white;
+}
+
+.selected-patient {
+  transition: background-color 0.3s ease-in-out;
+}

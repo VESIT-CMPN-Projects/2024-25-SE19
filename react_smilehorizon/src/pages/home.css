@@ -1,0 +1,62 @@
+.greeting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70vh; /* Increase height to cover most of the viewport */
+  text-align: center;
+  margin-left: 250px; /* Offset for the left navbar */
+}
+
+.greeting {
+  color: #000000; /* Match the theme color */
+  margin-bottom: 30px; /* Add spacing below the message */
+  
+  h1{
+    font-size: 3rem; /* Increase font size */
+  }
+}
+
+/* Style the scroll button */
+.scroll-button {
+  padding: 15px 30px; /* Larger button size */
+  font-size: 1.5rem; /* Bigger font size for the button */
+  font-weight: bold;
+  color: white;
+  background-color: #2E8B57;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.scroll-button:hover {
+  background-color: #1e6b43;
+}
+
+/* Enable smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure the main content spans the full page */
+.main-content {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* Ensure it takes the full viewport height */
+  overflow: visible; /* Allow full-page scrolling */
+}
+
+/* Ensure the body allows scrolling */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Style the stats section */
+.stats {
+  margin-top: 50px; /* Add spacing from the top */
+  padding: 20px;
+  width: 100%;
+}

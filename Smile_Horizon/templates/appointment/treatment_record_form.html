@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - SmileHorizon{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h2 class="h4 mb-0">{{ title }}</h2>
+                </div>
+                <div class="card-body">
+                    <!-- Appointment Info -->
+                    <div class="alert alert-info mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Patient: {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</h5>
+                                <p class="mb-0">
+                                    <strong>Appointment:</strong> {{ appointment.appointment_date|date:"F j, Y" }} at {{ appointment.appointment_time|time:"h:i A" }} | 
+                                    <strong>Treatment:</strong> {{ appointment.treatment_type }}
+                                </p>
+                            </div>
+                            <a href="{% url 'patient_detail' pk=appointment.patient.id %}" class="btn btn-sm btn-outline-primary">
+                                View Patient
+                            </a>
+                        </div>
+                    </div>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Treatment Type -->
+                        <div class="mb-3">
+                            <label for="{{ form.treatment_type.id_for_label }}" class="form-label">Treatment Type</label>
+                            {{ form.treatment_type }}
+                            {% if form.treatment_type.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.treatment_type.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Select the type of treatment performed</div>
+                        </div>
+                        
+                        <!-- Treatment Details -->
+                        <div class="mb-3">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">Treatment Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.description.errors }}
+                                </div>
+                            {% endif %}
+                            <div class="form-text">Provide detailed description of the treatment performed</div>
+                        </div>
+                        
+                        <!-- Notes -->
+                        <div class="mb-3">
+                            <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.notes.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Follow-up -->
+                        <div class="card mb-4">
+                            <div class="card-body bg-light">
+                                <h5 class="mb-3">Follow-up Information</h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.follow_up_required.id_for_label }}" class="form-check-label">
+                                        {{ form.follow_up_required }}
+                                        Follow-up Required
+                                    </label>
+                                </div>
+                                
+                                <div class="row follow-up-section" id="follow-up-section">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="{{ form.follow_up_date.id_for_label }}" class="form-label">Follow-up Date</label>
+                                            {{ form.follow_up_date }}
+                                            {% if form.follow_up_date.errors %}
+                                                <div class="invalid-feedback d-block">
+                                                    {{ form.follow_up_date.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="{{ form.follow_up_instructions.id_for_label }}" class="form-label">Follow-up Instructions</label>
+                                            {{ form.follow_up_instructions }}
+                                            {% if form.follow_up_instructions.errors %}
+                                                <div class="invalid-feedback d-block">
+                                                    {{ form.follow_up_instructions.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Costs and Billing -->
+                        <div class="card mb-4">
+                            <div class="card-body bg-light">
+                                <h5 class="mb-3">Costs and Billing</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="{{ form.cost.id_for_label }}" class="form-label">Treatment Cost</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">$</span>
+                                                {{ form.cost }}
+                                            </div>
+                                            {% if form.cost.errors %}
+                                                <div class="invalid-feedback d-block">
+                                                    {{ form.cost.errors }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'appointment_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                Save Treatment Record
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add Bootstrap classes to form elements
+        const formControls = document.querySelectorAll('input, select, textarea');
+        formControls.forEach(element => {
+            if (element.type === 'checkbox') {
+                element.classList.add('form-check-input');
+            } else if (element.tagName === 'SELECT') {
+                element.classList.add('form-select');
+            } else {
+                element.classList.add('form-control');
+            }
+        });
+        
+        // Toggle follow-up section visibility
+        const followUpCheckbox = document.querySelector('#{{ form.follow_up_required.id_for_label }}');
+        const followUpSection = document.querySelector('#follow-up-section');
+        
+        function toggleFollowUpSection() {
+            if (followUpCheckbox.checked) {
+                followUpSection.style.display = 'flex';
+            } else {
+                followUpSection.style.display = 'none';
+            }
+        }
+        
+        // Initial toggle
+        toggleFollowUpSection();
+        
+        // Listen for changes
+        followUpCheckbox.addEventListener('change', toggleFollowUpSection);
+        
+        // Optional: Initialize date picker if you're using a library
+        if (typeof flatpickr !== 'undefined') {
+            flatpickr('input[name="follow_up_date"]', {
+                dateFormat: 'Y-m-d',
+                minDate: 'today'
+            });
+        }
+    });
+</script>
+{% endblock %}

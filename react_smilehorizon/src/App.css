@@ -1,0 +1,638 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f4f4;
+  scroll-behavior: smooth; /* Added smooth scrolling */
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  margin-left: 60px; /* Changed from 250px to 60px */
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease; /* Added transition for sidebar toggle */
+}
+
+.main-content {
+  display: flex;
+  width: 100%;
+}
+
+.page-content {
+  margin-left: 250px; /* Sidebar width */
+  padding: 20px;
+  width: calc(100% - 250px); /* Adjust width considering sidebar width */
+  background-color: #f8f9fa;
+  flex: 1;
+  height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2E8B57;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logo img {
+  height: 40px;
+  margin-right: 1rem;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #2E8B57;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding-top: 2rem;
+  z-index: 100;
+}
+
+.logo {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.sidebar ul li {
+  margin: 1.5rem 0;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+.sidebar ul li a:hover {
+  background-color: #237a73;
+  border-radius: 8px;
+}
+
+/* Home Page */
+.main-content h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.stat-done, .stat-upcoming, .stat-flwups {
+  flex: 1;
+  text-align: center;
+  margin: 0 10px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.stat-done {
+  background-color: #2E8B57;
+  color: white;
+}
+
+.stat-upcoming {
+  background-color: #D0E8FF;
+  color: black;
+}
+
+.stat-flwups {
+  background-color: rgb(192, 192, 26);
+  color: black;
+}
+
+.calendar-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* Ensure both calendar and stats stretch to the same height */
+  flex-grow: 1;
+}
+
+.react-calendar {
+  width: 40%; /* Adjusted width */
+  background-color: #fffaf0; /* Beige */
+  border: none;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+}
+
+.selected-date-stats {
+  width: 60%; /* Adjusted width */
+  margin-left: 20px;
+  padding: 20px;
+  background-color: #2E8B57;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content vertically */
+}
+
+/* Custom styles for the calendar */
+.react-calendar__tile {
+  background-color: #fff; /* White */
+  color: #333;
+  font-size: 1.5rem; /* Increased font size */
+  padding: 10px; /* Increased padding */
+}
+
+.react-calendar__tile--active {
+  background-color: #f5f5dc; /* Light beige */
+  color: #333;
+}
+
+.react-calendar__tile--now {
+  background-color: #ffebcd; /* Blanched almond */
+  color: #333;
+}
+
+.react-calendar__navigation button {
+  color: #2E8B57;
+  background-color: #fffaf0; /* Beige */
+}
+
+.react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: #d9534f;
+}
+
+/* Search Panel */
+.search-panel {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-panel input {
+  width: 50%;
+  padding: 12px;
+  border: 2px solid #2E8B57;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Selected Patient Name */
+.selected-patient {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2E8B57;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Patient Details Section */
+.patient-details-page {
+  padding: 20px;
+}
+
+.search-panel input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.patient-details {
+  flex-wrap: wrap;
+  gap: 10px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+.personal-info, .medical-history {
+  width: 45%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.dental-chart {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dental-row {
+  display: flex;
+  gap: 5px; /* Space between teeth */
+}
+
+.tooth {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #008080;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.filling {
+  background-color: yellow;
+}
+
+.extraction {
+  background-color: red;
+}
+
+.missing {
+  background-color: gray;
+}
+
+/* Additional tooth status classes */
+.decay {
+  background-color: brown;
+}
+
+.crown {
+  background-color: silver;
+}
+
+.implant {
+  background-color: lightblue;
+}
+
+/* Ensure new screens use the same layout */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.treatment-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  gap: 20px; /* Space between boxes */
+  margin-top: 20px;
+}
+
+.treatment-box {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  border: 2px solid #2E8B57;
+}
+
+.treatment-box label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #2E8B57;
+}
+
+.treatment-box textarea {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  resize: vertical;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  z-index: 1000;
+}
+
+/* Patient table */
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.patient-table th, .patient-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.patient-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.patient-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.status-badge.new {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-badge.ongoing {
+  background-color: #ffc107;
+  color: black;
+}
+
+.status-badge.completed {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.status-badge.followup {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Medical history section */
+.medical-history-section {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.history-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.history-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: calc(33.333% - 15px);
+}
+
+.history-card .card-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.history-card .card-header .date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Dental chart improvements */
+.dental-chart {
+  width: 100%;
+  margin: 30px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dental-chart h2 {
+  color: #2E8B57;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.tooth-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.dental-arch {
+  position: relative;
+  padding: 10px 0;
+}
+
+.dental-arch::before {
+  content: attr(data-arch);
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+  color: #2E8B57;
+}
+
+.tooth-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tooth {
+  position: relative;
+  width: 40px;
+  height: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooth:hover {
+  transform: scale(1.1);
+}
+
+.tooth img {
+  width: 100%;
+  height: auto;
+}
+
+.tooth-number {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #333;
+}
+
+/* Form grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #2E8B57;
+}
+
+.form-group textarea {
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  resize: vertical;
+}
+
+/* Submit button */
+.submit-btn {
+  background-color: #2E8B57;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.patient-name-button {
+  button{
+   text-align: left !important; 
+  }
+}
+
+.submit-btn:hover {
+  background-color: #237a73;
+}
+
+/* No selection state */
+.no-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 2px dashed #ccc;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+/* Treatment notes section */
+.treatment-notes-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.treatment-notes-section h2 {
+  color: #2E8B57;
+  margin-bottom: 20px;
+}
+
+/* Medications section */
+.medications-section {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
+.medications-section h2 {
+  color: #2E8B57;
+  margin-bottom: 20px;
+}
+
+.medication-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.medication-card {
+  background-color: #f9f9f9;
+  border-left: 4px solid #2E8B57;
+  border-radius: 4px;
+  padding: 15px;
+  width: calc(33.333% - 15px);
+}
+
+.medication-card h3 {
+  color: #2E8B57;
+  margin-bottom: 10px;
+}
+
+.medication-card p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}

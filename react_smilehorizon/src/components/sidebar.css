@@ -1,0 +1,140 @@
+/* Sidebar dimensions and colors */
+:root {
+  --sidebar-collapsed: 80px;
+  --sidebar-expanded: 220px;
+  --primary-color: #2c9c94;
+  --text-color: white;
+  --transition-time: 0.3s;
+}
+
+/* Base sidebar styles */
+.sidebar {
+  width: var(--sidebar-collapsed) !important; /* Critical for initial state */
+  height: 100vh !important; /* Must stay full height */
+  position: fixed !important; /* Must stay fixed */
+  background-color: var(--primary-color) !important; /* Core styling */
+  transition: width var(--transition-time) ease !important; /* Required for animation */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+/* Expanded state */
+.sidebar:hover {
+  width: var(--sidebar-expanded) !important; /* Must override collapsed width */
+}
+
+/* Menu items container */
+.sidebar-content {
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual menu items */
+.sidebar li {
+  width: 100%;
+  position: relative;
+}
+
+.sidebar li a {
+  display: flex !important; /* Critical for layout */
+  align-items: center;
+  color: var(--text-color) !important; /* Core styling */
+  text-decoration: none !important; /* Must remove underline */
+  padding: 12px 0;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+/* Hover effect on menu items */
+.sidebar li a:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important; /* Visual feedback */
+}
+
+/* Icon styling - now perfectly centered */
+.icon {
+  width: var(--sidebar-collapsed) !important; /* Must match sidebar width */
+  display: flex !important; /* Critical for centering */
+  justify-content: center !important; /* Force horizontal center */
+  align-items: center !important; /* Force vertical center */
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  padding-right: 33px;
+}
+
+/* Text label styling */
+.link-text {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: 
+    opacity var(--transition-time),
+    transform var(--transition-time);
+  font-size: 0.95rem;
+}
+
+/* Expanded state styles */
+.sidebar:hover .link-text {
+  opacity: 1 !important; /* Must override hidden state */
+  transform: translateX(0) !important; /* Must override slide-out */
+  margin-left: 8px;
+}
+
+/* Copyright section */
+.copyright {
+  padding: 15px 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --sidebar-collapsed: 70px;
+  }
+  
+  .sidebar:hover {
+    width: 200px !important; /* Must override desktop expansion */
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100% !important; /* Must override all other states */
+    height: auto !important; /* Must override full height */
+    bottom: 0 !important; /* Anchor to bottom */
+    flex-direction: row !important; /* Change layout */
+  }
+  
+  .sidebar ul {
+    display: flex !important; /* Change to horizontal layout */
+  }
+  
+  .sidebar li a {
+    flex-direction: column !important; /* Stack icon/text */
+  }
+  
+  .icon {
+    width: auto !important; /* Release fixed width */
+    margin-bottom: 5px;
+  }
+  
+  .link-text {
+    opacity: 1 !important; /* Force visible on mobile */
+    transform: none !important; /* Remove animation */
+    margin-left: 0 !important; /* Reset spacing */
+    font-size: 0.7rem;
+  }
+  
+  .copyright {
+    display: none !important; /* Hide on mobile */
+  }
+}

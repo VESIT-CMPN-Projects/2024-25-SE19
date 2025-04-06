@@ -1,0 +1,38 @@
+/* Global CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling - only enable for users who don't prefer reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  /* Ensure proper scroll container */
+  overflow-y: scroll;
+  scroll-snap-type: y proximity;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Fix for Safari scrolling issues */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+}

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ patient.first_name }} {{ patient.last_name }} - SmileHorizon{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Patient header -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="bg-primary rounded-circle p-3 me-3 text-white">
+                        <i class="fas fa-user-circle fa-2x"></i>
+                    </div>
+                    <div>
+                        <h2 class="mb-1">{{ patient.first_name }} {{ patient.last_name }}</h2>
+                        <p class="text-muted mb-0">
+                            {{ patient.age }} years | {{ patient.get_gender_display }} | Last Visit: {{ patient.last_visit|default:"No visits yet" }}
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    {% if patient.status == 'NEW' %}
+                        <span class="badge rounded-pill bg-info px-3 py-2 fs-6">New Patient</span>
+                    {% elif patient.status == 'ONGOING' %}
+                        <span class="badge rounded-pill badge-ongoing px-3 py-2 fs-6">Ongoing Treatment</span>
+                    {% elif patient.status == 'COMPLETED' %}
+                        <span class="badge rounded-pill badge-completed px-3 py-2 fs-6">Treatment Completed</span>
+                    {% elif patient.status == 'FOLLOW_UP' %}
+                        <span class="badge rounded-pill bg-primary px-3 py-2 fs-6">Follow-up Required</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Action buttons -->
+    <div class="mb-4">
+        <div class="btn-group">
+            <a href="{% url 'appointment_create' %}?patient_id={{ patient.id }}" class="btn btn-primary">
+                <i class="fas fa-calendar-plus me-2"></i> New Appointment
+            </a>
+            <a href="{% url 'patient_update' pk=patient.id %}" class="btn btn-outline-primary">
+                <i class="fas fa-edit me-2"></i> Edit Profile
+            </a>
+        </div>
+    </div>
+    
+    <!-- Content tabs -->
+    <ul class="nav nav-pills mb-3" id="patientTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="personal-tab" data-bs-toggle="pill" data-bs-target="#personal" type="button" role="tab" aria-controls="personal" aria-selected="true">Personal Info</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="medical-tab" data-bs-toggle="pill" data-bs-target="#medical" type="button" role="tab" aria-controls="medical" aria-selected="false">Medical History</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="treatment-tab" data-bs-toggle="pill" data-bs-target="#treatment" type="button" role="tab" aria-controls="treatment" aria-selected="false">Treatment Records</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="appointments-tab" data-bs-toggle="pill" data-bs-target="#appointments" type="button" role="tab" aria-controls="appointments" aria-selected="false">Appointments</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="documents-tab" data-bs-toggle="pill" data-bs-target="#documents" type="button" role="tab" aria-controls="documents" aria-selected="false">Documents</button>
+        </li>
+    </ul>
+    
+    <!-- Tab contents -->
+    <div class="tab-content" id="patientTabsContent">
+        <!-- Personal Information -->
+        <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <th style="width: 35%">Full Name</th>
+                                    <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Age</th>
+                                    <td>{{ patient.age }} years</td>
+                                </tr>
+                                <tr>
+                                    <th>Gender</th>
+                                    <td>{{ patient.get_gender_display }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Blood Group</th>
+                                    <td>{{ patient.blood_group|default:"Not recorded" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Registered On</th>
+                                    <td>{{ patient.created_at|date:"F j, Y" }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table">
+                                <tr>
+                                    <th style="width: 35%">Contact Number</th>
+                                    <td>{{ patient.contact_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ patient.email|default:"Not provided" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>{{ patient.address|default:"Not provided" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Allergies</th>
+                                    <td>{{ patient.allergies|default:"None reported" }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Medical Conditions</th>
+                                    <td>{{ patient.existing_conditions|default:"None reported" }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Medical History -->
+        <div class="tab-pane fade" id="medical" role="tabpanel" aria-labelledby="medical-tab">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Medical History</h5>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMedicalHistoryModal">
+                                <i class="fas fa-plus me-1"></i> Add
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            {% if medical_histories %}
+                                <div class="list-group">
+                                    {% for history in medical_histories %}
+                                    <div class="list-group-item list-group-item-action">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1">{{ history.condition }}</h6>
+                                            <small>{{ history.diagnosis_date|date:"M d, Y" }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ history.treatment }}</p>
+                                        <small class="text-muted">{{ history.notes }}</small>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="text-center py-3">
+                                    <p class="text-muted">No medical history records found</p>
+                                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMedicalHistoryModal">
+                                        <i class="fas fa-plus me-1"></i> Add Medical History
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Medications</h5>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addMedicationModal">
+                                <i class="fas fa-plus me-1"></i> Add
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <h6>Current Medications</h6>
+                                {% if current_medications %}
+                                    <div class="list-group mb-3">
+                                        {% for med in current_medications %}
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h6 class="mb-1">{{ med.name }}</h6>
+                                                <small>From {{ med.prescribed_date|date:"M d, Y" }}</small>
+                                            </div>
+                                            <p class="mb-1">Dosage: {{ med.dosage }}, Frequency: {{ med.frequency }}</p>
+                                            <small class="text-muted">{{ med.notes }}</small>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <p class="text-muted">No

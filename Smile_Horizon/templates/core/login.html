@@ -1,0 +1,201 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SmileHorizon Dental Clinic</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7873;
+            --secondary: #6FB98F;
+            --light: #f7f7f7;
+            --dark: #2B3A42;
+        }
+        
+        body {
+            background-color: var(--light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        
+        .login-container {
+            max-width: 900px;
+            width: 100%;
+            background-color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .login-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .login-image {
+            flex: 1;
+            background-image: url('{% static "img/dental-clinic.jpg" %}');
+            background-size: cover;
+            background-position: center;
+            min-height: 400px;
+            position: relative;
+        }
+        
+        .login-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(44, 120, 115, 0.8), rgba(111, 185, 143, 0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .login-form {
+            flex: 1;
+            padding: 3rem;
+            min-width: 320px;
+        }
+        
+        .login-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-control {
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.25rem rgba(44, 120, 115, 0.25);
+        }
+        
+        .btn-login {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            padding: 0.7rem;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        .btn-login:hover {
+            background-color: #236259;
+            border-color: #236259;
+        }
+        
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .form-control.right-rounded {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-left: none;
+        }
+        
+        .alert {
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .login-image {
+                min-height: 200px;
+            }
+            
+            .login-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-row">
+            <!-- Left side - Image -->
+            <div class="login-image">
+                <div class="login-image-overlay">
+                    <h1 class="mb-4">SmileHorizon</h1>
+                    <h4 class="mb-3">Dental Clinic Management System</h4>
+                    <p class="mb-0">Streamline your dental practice with our comprehensive management solution.</p>
+                </div>
+            </div>
+            
+            <!-- Right side - Login Form -->
+            <div class="login-form">
+                <h2 class="login-title">Welcome Back</h2>
+                <p class="text-muted mb-4">Please sign in to continue</p>
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input type="text" class="form-control right-rounded" id="username" name="username" required autofocus>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input type="password" class="form-control right-rounded" id="password" name="password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                            <label class="form-check-label" for="remember">Remember me</label>
+                        </div>
+                        <a href="{% url 'password_reset' %}" class="text-decoration-none" style="color: var(--primary);">Forgot password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-login">Sign In</button>
+                    
+                    <div class="text-center mt-4">
+                        <p class="text-muted">
+                            <span>Current Date: {{ current_date }}</span>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

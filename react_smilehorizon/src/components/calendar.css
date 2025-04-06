@@ -1,0 +1,115 @@
+/* Base Calendar Styling */
+.react-calendar {
+  width: 90% !important; /* Reduced from 80% to 60% */
+  border: none;
+  background-color: #fefce8;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0; /* Remove auto margin to align left */
+  margin-right: auto; /* Push calendar to the left */
+}
+
+/* Navigation buttons */
+.react-calendar__navigation button {
+  background-color: transparent;
+  color: #374151; /* Tailwind's gray-700 */
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.react-calendar__navigation button:hover {
+  color: #2563eb; /* Tailwind's blue-600 */
+  background-color: #f1f5f9; /* gray-100 */
+  border-radius: 6px;
+}
+
+/* Day tiles */
+.react-calendar__tile {
+  padding: 12px 0;
+  transition: background-color 0.3s ease, transform 0.2s;
+  border-radius: 8px;
+}
+
+.react-calendar__tile:hover {
+  background-color: #93c5fd; /* blue-300 */
+  color: rgb(0, 0, 0);
+  transform: scale(1.05);
+}
+
+/* Active date */
+.react-calendar__tile--active {
+  background-color: #2563eb !important; /* blue-600 */
+  color: white;
+  border-radius: 8px;
+}
+
+/* Current date */
+.react-calendar__tile--now {
+  background-color: #fde68a; /* yellow-300 */
+  border-radius: 8px;
+  color: #374151;
+}
+
+/* Add these new styles for the calendar container and stats */
+.calendar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.custom-calendar {
+  display: flex;
+  justify-content: flex-start; /* Align calendar to the left */
+  width: 70%; /* Increased to balance smaller stats box */
+}
+
+/* Adjust the calendar stats position */
+.calendar-stats {
+  background-color: #fefce8;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem; /* Adjusted padding */
+  height: auto; /* Adjusted height */
+  max-height: 400px; /* Match approximate calendar height */
+  overflow-y: auto;
+  margin-left: 2rem; /* Add space between calendar and stats */
+  width: 25% !important; /* Reduced from 35% to 25% */
+}
+
+/* Compact spacing for stats content */
+.calendar-stats .MuiCardContent-root {
+  padding: 12px;
+}
+
+.calendar-stats .MuiTypography-h4 {
+  font-size: 1.5rem; /* Smaller font size for numbers */
+}
+
+.calendar-stats .MuiTypography-subtitle1 {
+  font-size: 0.875rem; /* Smaller font size for labels */
+}
+
+.calendar-stats .MuiBox-root {
+  margin-bottom: 0.75rem; /* Reduced spacing between stat items */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .react-calendar {
+    width: 100% !important; /* Full width on mobile */
+    margin: 0 auto; /* Center on mobile */
+  }
+
+  .calendar-container {
+    flex-direction: column;
+  }
+  
+  .calendar-stats {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}

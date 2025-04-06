@@ -2,42 +2,67 @@
 
 ## Overview
 
-SmileHorizon is a comprehensive Django-based dental clinic management system designed to streamline the daily operations of a dental practice. The system includes patient management, appointment scheduling, treatment records, and prescription management capabilities.
-
-![Dashboard](Smile_Horizon/UI/1.jpg)
+SmileHorizon is a modern dental clinic management system built with React and Django REST Framework. It provides a user-friendly interface for managing patients, appointments, and dental records.
 
 ## Table of Contents
 
 1. [System Architecture](#system-architecture)
 2. [Installation Guide](#installation-guide)
-3. [Project Structure](#project-structure)
-4. [Database Models](#database-models)
-5. [Features & Functionality](#features--functionality)
-6. [User Guide](#user-guide)
-7. [Contributing Guidelines](#contributing-guidelines)
-8. [Future Enhancements](#future-enhancements)
+3. [Features & Functionality](#features--functionality)
+4. [Project Structure](#project-structure)
+5. [Future Enhancements](#future-enhancements)
 
 ## System Architecture
 
-SmileHorizon is built using the following technologies:
+SmileHorizon uses a modern tech stack:
 
-- **Backend**: Django 4.2+ (Python web framework)
-- **Database**: SQLite (default for development, configurable for PostgreSQL, MySQL, etc. for production)
-- **Frontend**: HTML, CSS, JavaScript with Bootstrap 5
-- **Authentication**: Django's built-in authentication system
-
-The application follows the standard Django MTV (Model-Template-View) architecture:
-- **Models**: Define the database structure
-- **Templates**: Handle the presentation layer
-- **Views**: Contain the business logic
+- **Frontend**: React.js with Material-UI components
+- **Backend**: Django REST Framework 
+- **Database**: SQLite
+- **API Communication**: Axios
+- **Styling**: CSS Modules, Tailwind CSS
 
 ## Installation Guide
 
 ### Prerequisites
+- Python 3.12+
+- Node.js 16+
+- npm/yarn
 
-- Python 3.8+
-- pip (Python package installer)
-- Git
+### Backend Setup
+
+```bash```
+# Navigate to Django project
+cd Smile_Horizon
+
+# Create virtual environment
+python -m venv env
+
+# Activate virtual environment (Windows)
+env\Scripts\activate
+
+# Install dependencies
+pip install django
+pip install djangorestframework
+pip install django-cors-headers
+pip install django-filter
+
+# Apply migrations
+python manage.py migrate
+
+# Run server
+python manage.py runserver
+
+### Frontend Setup
+# Navigate to React project
+cd react_smilehorizon
+
+# Install dependencies
+npm install
+
+# Run development server
+npm start
+
 
 ### Setup Instructions
 
@@ -97,43 +122,61 @@ python manage.py runserver
 
 ## Project Structure
 
-```
+BACKEND
 Smile_Horizon/
-├── Smile_Horizon/          # Main project directory
-│   ├── settings.py         # Project settings
-│   ├── urls.py             # Main URL configuration
-│   └── ...
-├── User/                   # User management app
-│   ├── models.py           # User model (extends Django's AbstractUser)
-│   ├── views.py
-│   └── ...
-├── Patient/                # Patient management app
-│   ├── models.py           # Patient, MedicalHistory, Document models
-│   ├── views.py            # Patient-related views
-│   ├── forms.py            # Patient-related forms
-│   ├── urls.py             # URL patterns for patient views
-│   └── ...
-├── Appointment/            # Appointment management app
-│   ├── models.py           # Appointment, TreatmentRecord models
-│   ├── views.py            # Appointment-related views
-│   ├── forms.py            # Appointment-related forms
-│   ├── urls.py             # URL patterns for appointment views
-│   └── ...
-├── Prescription/           # Prescription management app
-│   ├── models.py           # Medicine, Prescription models
-│   └── ...
-├── core/                   # Core app for dashboard and shared functionality
-│   ├── views.py            # Dashboard view
-│   ├── urls.py             # URL patterns for core views
-│   └── ...
-├── templates/              # Global templates
-│   ├── base.html           # Base template with common layout
-│   ├── core/               # Templates for core app
-│   ├── patient/            # Templates for Patient app
-│   └── ...
-├── static/                 # Static files (CSS, JavaScript, images)
-└── media/                  # User-uploaded files (patient documents, etc.)
-```
+├── core/
+│   ├── views.py          # Core business logic
+│   ├── urls.py           # URL routing
+│   └── models.py         # Base models
+│
+├── Patient/
+│   ├── models.py         # Patient data models
+│   ├── serializers.py    # API serializers
+│   ├── views.py          # Patient endpoints
+│   └── urls.py          # Patient routes
+│
+├── Appointment/
+│   ├── models.py         # Appointment schemas
+│   ├── serializers.py    # Data serialization
+│   ├── views.py          # Appointment logic
+│   └── urls.py          # Route definitions
+│
+└── settings/
+    ├── base.py          # Base settings
+    ├── development.py   # Dev environment
+    └── production.py    # Prod environment
+
+
+FRONTEND
+react_smilehorizon/
+├── src/
+│   ├── components/
+│   │   ├── DentalChart/
+│   │   │   ├── index.jsx
+│   │   │   └── styles.css
+│   │   ├── AppointmentCalendar/
+│   │   │   ├── index.jsx
+│   │   │   └── styles.css
+│   │   └── PatientForm/
+│   │       ├── index.jsx
+│   │       └── styles.css
+│   │
+│   ├── pages/
+│   │   ├── Dashboard/
+│   │   ├── PatientList/
+│   │   ├── AppointmentManager/
+│   │   └── Settings/
+│   │
+│   ├── services/
+│   │   ├── api.js       # API integration
+│   │   └── utils.js     # Helper functions
+│   │
+│   └── assets/
+│       ├── images/
+│       └── icons/
+│
+└── public/
+    └── index.html
 
 ## Database Models
 
@@ -158,11 +201,27 @@ Smile_Horizon/
 
 ## Features & Functionality
 
-- **Dashboard Features**: Overview of daily statistics, weekly calendar view.
-- **Patient Management**: Registration, medical history, document management.
-- **Appointment System**: Scheduling, status tracking, calendar view.
-- **Treatment Management**: Record treatments, view history, schedule follow-ups.
-- **Prescription System**: Medicine database, prescription creation.
+- **Dashboard Features**: Modern UI with statistics cards
+                          Interactive calendar
+                          Day-wise appointment tracking
+- **Patient Management**: Add/Edit patient records
+                          Detailed dental chart
+                          Treatment history tracking
+                          Status updates (New, Ongoing, Completed)
+- **Appointment System**: Schedule new appointments
+                          View appointment details
+                          Update appointment status
+                          Treatment notes and records
+- **Treatment Management**: Record treatment
+                            view history
+                            schedule follow-ups.
+- **Dental Chart**: Interactive tooth selection
+                            Status updates for each tooth
+                            Multiple treatment options (Normal, Filling, Extraction, etc.)
+                            Treatment history per tooth
+- **Prescription System**: Record medications
+                           Track treatment progress
+                           Store post-treatment instructions
 
 ## User Guide
 
@@ -209,7 +268,7 @@ python manage.py test
 - **Integration with Dental Imaging Systems**: Direct import of X-rays.
 
 ---
-_Last Updated: March 1, 2025_
+_Last Updated: 25 March, 2025_
 
-**© 2025 SmileHorizon - Developed by Ghostblaster08**
+**© 2025 SmileHorizon - Developed by Ghostblaster08, Yash-Mahajan-28, Rahulgg22, ei-akulxx**
 

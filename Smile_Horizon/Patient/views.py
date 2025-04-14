@@ -5,14 +5,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 
-from .models import Patient, MedicalHistory, Medication, Document, TeethStatus
+from .models import Patient, MedicalHistory, Medication, Document, ToothStatus
 from .serializers import (
     PatientSerializer,
     PatientDetailSerializer,
     MedicalHistorySerializer,
     MedicationSerializer,
     DocumentSerializer,
-    TeethStatusSerializer,
+    ToothStatusSerializer,
 )
 
 
@@ -79,11 +79,45 @@ class PatientViewSet(viewsets.ModelViewSet):
             status = tooth_data.get("status")
 
             if tooth_number and status:
-                tooth, created = TeethStatus.objects.update_or_create(
+                tooth, created = ToothStatus.objects.update_or_create(
                     patient=patient, tooth_number=tooth_number, defaults={"status": status}
                 )
 
         return Response({"message": "Teeth status updated successfully"}, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['get'])
+    def tooth_status(self, request, pk=None):
+        """Get tooth status for a specific patient"""
+        try:
+            patient = self.get_object()
+            teeth = ToothStatus.objects.filter(patient=patient)
+            serializer = ToothStatusSerializer(teeth, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error fetching tooth status: {e}")
+            return Response([])  # Return empty list if error
+    
+    @action(detail=True, methods=['post'])
+    def update_tooth_status(self, request, pk=None):
+        """Update tooth status for a specific patient"""
+        try:
+            patient = self.get_object()
+            tooth_number = request.data.get('tooth_number')
+            status = request.data.get('status')
+            notes = request.data.get('notes', '')
+            
+            # Update or create the tooth status
+            tooth, created = ToothStatus.objects.update_or_create(
+                patient=patient,
+                tooth_number=tooth_number,
+                defaults={'status': status, 'notes': notes}
+            )
+            
+            serializer = ToothStatusSerializer(tooth)
+            return Response(serializer.data)
+        except Exception as e:
+            print(f"Error updating tooth status: {e}")
+            return Response({"error": str(e)}, status=400)
 
 
 class MedicalHistoryViewSet(viewsets.ModelViewSet):

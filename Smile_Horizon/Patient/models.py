@@ -26,7 +26,6 @@ class Patient(models.Model):
     email = models.EmailField(blank=True)
     address = models.TextField(blank=True)
     blood_group = models.CharField(max_length=5, blank=True)
-    allergies = models.TextField(blank=True)
     existing_conditions = models.TextField(blank=True, verbose_name='Existing Medical Conditions')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='NEW')
     last_visit = models.DateField(null=True, blank=True)
@@ -90,20 +89,17 @@ class Document(models.Model):
     def __str__(self):
         return self.title
     
-class TeethStatus(models.Model):
-    """
-    Tracks the status of individual teeth for a patient
-    """
-    STATUS_CHOICES = (
-        ('normal', 'Normal'),
-        ('filling', 'Filling'),
-        ('extraction', 'Extraction'),
-        ('missing', 'Missing'),
-    )
-
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_teeth_status')
+# Patient/models.py - Add this model
+class ToothStatus(models.Model):
+    patient = models.ForeignKey('Patient', related_name='teeth_status', on_delete=models.CASCADE)
     tooth_number = models.IntegerField()
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='normal')
+    status = models.CharField(max_length=20, default='normal')
+    notes = models.TextField(blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ['patient', 'tooth_number']
+        ordering = ['tooth_number']
+    
     def __str__(self):
         return f"Tooth {self.tooth_number} - {self.status} ({self.patient})"

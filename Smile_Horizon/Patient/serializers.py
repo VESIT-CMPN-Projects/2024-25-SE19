@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Patient, MedicalHistory, Medication, Document, TeethStatus
+from .models import Patient, MedicalHistory, Medication, Document, ToothStatus
 
 
 class MedicalHistorySerializer(serializers.ModelSerializer):
@@ -32,13 +32,10 @@ class DocumentSerializer(serializers.ModelSerializer):
         extra_kwargs = {'patient': {'read_only': True}}
 
 
-class TeethStatusSerializer(serializers.ModelSerializer):
-    """
-    Serializer for tracking the status of individual teeth.
-    """
+class ToothStatusSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TeethStatus
-        fields = ["tooth_number", "status"]
+        model = ToothStatus
+        fields = ['id', 'tooth_number', 'status', 'notes', 'updated_at']
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -51,7 +48,7 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = [
             'id', 'first_name', 'last_name', 'age', 'gender', 'contact_number',
-            'email', 'address', 'blood_group', 'allergies', 'existing_conditions',
+            'email', 'address', 'blood_group', 'existing_conditions',
             'status', 'last_visit', 'created_at', 'updated_at'
         ]
         extra_kwargs = {
@@ -67,13 +64,13 @@ class PatientDetailSerializer(serializers.ModelSerializer):
     medical_histories = MedicalHistorySerializer(many=True, read_only=True)
     medications = MedicationSerializer(many=True, read_only=True)
     documents = DocumentSerializer(many=True, read_only=True)
-    teeth_status = TeethStatusSerializer(many=True, read_only=True)
+    teeth_status = ToothStatusSerializer(many=True, read_only=True)
 
     class Meta:
         model = Patient
         fields = [
             'id', 'first_name', 'last_name', 'age', 'gender', 'contact_number',
-            'email', 'address', 'blood_group', 'allergies', 'existing_conditions',
+            'email', 'address', 'blood_group', 'existing_conditions',
             'status', 'last_visit', 'created_at', 'updated_at',
             'medical_histories', 'medications', 'documents', 'teeth_status'
         ]
